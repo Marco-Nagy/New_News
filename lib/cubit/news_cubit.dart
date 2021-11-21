@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:simple_api/data/dio_helper.dart';
 import 'package:simple_api/modules/business_screen.dart';
 import 'package:simple_api/modules/science_screen.dart';
 import 'package:simple_api/modules/sports_screen.dart';
-import 'package:simple_api/remote/dio_helper.dart';
+
 
 import 'news_states.dart';
 

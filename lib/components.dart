@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:simple_api/web_view_screen.dart';
+import 'package:simple_api/modules/web_view_screen.dart';
 
 Widget myNewsListView(List<dynamic> newsList) {
   return newsList.isEmpty

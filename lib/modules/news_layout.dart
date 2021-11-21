@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:simple_api/app_cubit.dart';
+import 'package:simple_api/cubit/app_cubit.dart';
 import 'package:simple_api/components.dart';
 import 'package:simple_api/cubit/news_cubit.dart';
 import 'package:simple_api/cubit/news_states.dart';

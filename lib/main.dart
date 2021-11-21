@@ -3,17 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:simple_api/app_cubit.dart';
+import 'package:simple_api/cubit/app_cubit.dart';
 import 'package:simple_api/cubit/bloc_observer.dart';
 import 'package:simple_api/cubit/news_cubit.dart';
 import 'package:simple_api/cubit/news_states.dart';
-import 'package:simple_api/remote/dio_helper.dart';
+import 'package:simple_api/data/my_shared.dart';
 
-import 'news_layout.dart';
 
-void main() {
+import 'data/dio_helper.dart';
+import 'modules/news_layout.dart';
+
+void main()async {
+  WidgetsFlutterBinding.ensureInitialized();
   Bloc.observer = MyBlocObserver();
   DioHelper.init();
+  await MyShared.init();
   runApp(MyApp());
 }
 
@@ -24,7 +28,7 @@ class MyApp extends StatelessWidget {
     return MultiBlocProvider(
       providers: [
         BlocProvider(create: (context) => NewsCubit(NewsInitialState())..getAllNews(),),
-        BlocProvider(create: (context) =>AppCubit(),),
+        BlocProvider(create: (context) =>AppCubit()..getAppMode(),),
 
       ],
       child: BlocConsumer<AppCubit,AppState>(
@@ -108,7 +112,7 @@ class MyApp extends StatelessWidget {
               ),
               primarySwatch: Colors.blue,
             ),
-            themeMode:AppCubit.get(context).isDark? ThemeMode.dark:ThemeMode.light,
+            themeMode:AppCubit.get(context).themeMode,
             home: Directionality(
                 textDirection: TextDirection.rtl, child: NewsLayout()),
           );
