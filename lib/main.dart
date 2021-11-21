@@ -64,7 +64,7 @@ class MyApp extends StatelessWidget {
               textTheme: TextTheme(
                 bodyText1: TextStyle(
                   fontSize: 18,
-                  fontWeight: FontWeight.w600,
+                  fontWeight: FontWeight.bold,
                   color: Colors.black,
                 ),
               ),
@@ -72,6 +72,14 @@ class MyApp extends StatelessWidget {
                 color: Colors.blue,
               ),
               primarySwatch: Colors.blue,
+              primaryColor: Colors.grey.shade200,
+              primaryTextTheme: TextTheme(
+                subtitle1: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blue,
+                ),
+              ),
             ),
             darkTheme: ThemeData(
               scaffoldBackgroundColor: HexColor('333739'),
@@ -97,8 +105,8 @@ class MyApp extends StatelessWidget {
                 type: BottomNavigationBarType.fixed,
                 elevation: 30.0,
                 backgroundColor: HexColor('333739'),
-                selectedItemColor: Colors.white,
-                unselectedItemColor: Colors.grey.shade500,
+                selectedItemColor: Colors.amber,
+                unselectedItemColor: Colors.white,
               ),
               textTheme: TextTheme(
                 bodyText1: TextStyle(
@@ -110,7 +118,15 @@ class MyApp extends StatelessWidget {
               cardTheme: CardTheme(
                 color: Colors.grey.shade600,
               ),
-              primarySwatch: Colors.blue,
+              primaryColor: Colors.grey.shade700,
+              primarySwatch: Colors.amber,
+              primaryTextTheme: TextTheme(
+                subtitle1: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.amber,
+                ),
+              ),
             ),
             themeMode:AppCubit.get(context).themeMode,
             home: Directionality(

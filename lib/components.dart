@@ -18,7 +18,7 @@ Widget myNewsListView(List<dynamic> newsList) {
                 color: Theme.of(context).cardTheme.color,
               ),
               child: InkWell(
-                onTap: (){
+                onTap: () {
                   navigateTo(context, WebViewScreen(newsList[index]['url']));
                 },
                 child: Row(
@@ -30,8 +30,8 @@ Widget myNewsListView(List<dynamic> newsList) {
                           borderRadius: BorderRadius.circular(10),
                           color: Colors.grey.shade300,
                           image: DecorationImage(
-                            image:
-                                NetworkImage(newsList[index]['urlToImage'] ?? ""),
+                            image: NetworkImage(
+                                newsList[index]['urlToImage'] ?? ""),
                             fit: BoxFit.cover,
                           )),
                     ),
@@ -63,13 +63,17 @@ Widget myNewsListView(List<dynamic> newsList) {
                 ),
               ),
             );
-          }, separatorBuilder: (BuildContext context, int index)=>
-      Divider(height: 5,thickness:0.5 ,color: Colors.teal,),
+          },
+          separatorBuilder: (BuildContext context, int index) => Divider(
+            height: 5,
+            thickness: 0.5,
+            color: Colors.teal,
+          ),
         );
-
 }
 
-Widget defaultTextField({
+Widget defaultTextField(
+  BuildContext context, {
   required TextEditingController controller,
   TextInputType? type,
   TextInputAction inputAction = TextInputAction.next,
@@ -80,7 +84,7 @@ Widget defaultTextField({
   bool obscureText = false,
   GestureTapCallback? onTap,
   ValueChanged? onChange,
-  ValueChanged?onFieldSubmitted,
+  ValueChanged? onFieldSubmitted,
 }) =>
     TextFormField(
       onTap: onTap,
@@ -90,7 +94,10 @@ Widget defaultTextField({
       textInputAction: inputAction,
       decoration: InputDecoration(
         labelText: label,
-        border: OutlineInputBorder(
+        labelStyle: Theme.of(context).primaryTextTheme.subtitle1,
+        fillColor: Theme.of(context).primaryColor ,
+        filled: true,
+        border: OutlineInputBorder(borderSide: BorderSide(width: 20,color: Theme.of(context).primaryColor),
           borderRadius: BorderRadius.circular(50),
         ),
         prefixIcon: Icon(
@@ -98,12 +105,13 @@ Widget defaultTextField({
         ),
         suffixIcon: suffixIcon,
       ),
+      style: Theme.of(context).primaryTextTheme.subtitle1,
       validator: validator,
       onChanged: onChange,
       onFieldSubmitted: onFieldSubmitted,
     );
 
 void navigateTo(context, widget) => Navigator.push(
-    context,
-    MaterialPageRoute(
-        builder: (BuildContext context) =>widget),);
+      context,
+      MaterialPageRoute(builder: (BuildContext context) => widget),
+    );

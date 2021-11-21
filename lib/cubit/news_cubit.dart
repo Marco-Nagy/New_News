@@ -57,7 +57,7 @@ class NewsCubit extends Cubit<NewsStates> {
         'category': category,
         //a552a4a2da2c4805865c9a9c85056383
         //156ce3ce099b432dab6ae5abc6245fe6
-        'apiKey': "156ce3ce099b432dab6ae5abc6245fe6",
+        'apiKey': "a552a4a2da2c4805865c9a9c85056383",
       },
     );
     var newsList = response.data['articles'];
@@ -80,7 +80,7 @@ class NewsCubit extends Cubit<NewsStates> {
       'v2/everything',
       queryParameters: {
         'q': value,
-        'apiKey': "156ce3ce099b432dab6ae5abc6245fe6",
+        'apiKey': "a552a4a2da2c4805865c9a9c85056383",
       },
     );
     var searchList = response.data['articles'];

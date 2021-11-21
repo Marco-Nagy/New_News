@@ -21,7 +21,7 @@ class SearchScreen extends StatelessWidget {
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: defaultTextField(
+                child: defaultTextField(context,
                   controller: searchController,
                   type: TextInputType.text,
                   onChange: (value) {
