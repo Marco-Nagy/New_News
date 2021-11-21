@@ -5,7 +5,6 @@ import 'package:simple_api/modules/business_screen.dart';
 import 'package:simple_api/modules/science_screen.dart';
 import 'package:simple_api/modules/sports_screen.dart';
 
-
 import 'news_states.dart';
 
 class NewsCubit extends Cubit<NewsStates> {
@@ -15,7 +14,7 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> businessNewsList = [];
   List<dynamic> scienceNewsList = [];
   List<dynamic> sportsNewsList = [];
-  List<dynamic> searchNewsList = [];
+  List<dynamic> searchNewsList = [""];
 
   int currentIndex = 0;
   List<BottomNavigationBarItem> bottomItems = [
@@ -72,7 +71,11 @@ class NewsCubit extends Cubit<NewsStates> {
     sportsNewsList = await getNews(category: "sports");
   }
 
+  bool isNewsVisible = false;
   Future<List<dynamic>> getSearch(String value) async {
+    isNewsVisible =true;
+    searchNewsList.clear();
+    emit(LoadingSearchNewsState());
     var response = await DioHelper.dio.get(
       'v2/everything',
       queryParameters: {

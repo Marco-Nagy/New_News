@@ -12,10 +12,10 @@ class SearchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<NewsCubit,NewsStates>(
+    return BlocConsumer<NewsCubit, NewsStates>(
       listener: (context, state) {},
       builder: (context, state) {
-        return  Scaffold(
+        return Scaffold(
           appBar: AppBar(),
           body: Column(
             children: [
@@ -24,12 +24,12 @@ class SearchScreen extends StatelessWidget {
                 child: defaultTextField(
                   controller: searchController,
                   type: TextInputType.text,
-                  onFieldSubmitted: (value) {
+                  onChange: (value) {
                     NewsCubit.get(context).getSearch(value);
                   },
                   validator: (value) {
-                    if(value.isEmpty){
-                      return"Search must not be Empty";
+                    if (value.isEmpty) {
+                      return "Search must not be Empty";
                     }
                     return null;
                   },
@@ -38,12 +38,17 @@ class SearchScreen extends StatelessWidget {
                   inputAction: TextInputAction.search,
                 ),
               ),
-              Expanded(child: myNewsListView(NewsCubit.get(context).searchNewsList ))
+              Expanded(
+                  child: Visibility(
+                    visible: NewsCubit.get(context).isNewsVisible,
+                    child: myNewsListView(
+                NewsCubit.get(context).searchNewsList,
+              ),
+                  ))
             ],
           ),
         );
       },
-
     );
   }
 }
