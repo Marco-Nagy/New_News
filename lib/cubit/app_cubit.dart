@@ -25,7 +25,7 @@ class AppCubit extends Cubit<AppState> {
   void changeAppMood() {
     isDark = !isDark;
     themeMode =(isDark)? ThemeMode.dark: ThemeMode.light;
-    MyShared.saveBoolean("isDark", isDark);
+    MyShared.saveData(key: 'isDark', value: isDark);
     emit(ChangeMoodState());
   }
 

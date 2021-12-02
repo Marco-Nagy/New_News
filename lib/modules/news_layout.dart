@@ -44,6 +44,7 @@ class _NewsLayoutState extends State<NewsLayout> {
               ),
               body: cubit.screens[cubit.currentIndex],
               bottomNavigationBar: BottomNavigationBar(
+
                 currentIndex: cubit.currentIndex,
                 items: cubit.bottomItems,
                 onTap: (index) {
