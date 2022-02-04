@@ -15,13 +15,18 @@ class AppCubit extends Cubit<AppState> {
 
 
   static AppCubit get(context) => BlocProvider.of(context);
+
   ThemeMode themeMode =ThemeMode.dark;
   bool isDark = false;
+
+
   void getAppMode(){
    isDark = MyShared.sharedPreferences.getBool("isDark")??false;
    themeMode =(isDark)? ThemeMode.dark: ThemeMode.light;
     emit(ChangeMoodState());
   }
+
+
   void changeAppMood() {
     isDark = !isDark;
     themeMode =(isDark)? ThemeMode.dark: ThemeMode.light;
