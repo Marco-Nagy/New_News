@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,8 +7,6 @@ import 'package:simple_api/cubit/bloc_observer.dart';
 import 'package:simple_api/cubit/news_cubit.dart';
 import 'package:simple_api/cubit/news_states.dart';
 import 'package:simple_api/data/my_shared.dart';
-
-
 import 'data/dio_helper.dart';
 import 'modules/news_layout.dart';
 
@@ -71,7 +68,7 @@ class MyApp extends StatelessWidget {
                 color: Colors.blue,
               ),
               primarySwatch: Colors.blue,
-              primaryColor: Colors.grey.shade200,
+              primaryColor: Colors.grey.shade400,
               primaryTextTheme: TextTheme(
                 subtitle1: TextStyle(
                   fontSize: 18,

@@ -15,8 +15,9 @@ class NewsCubit extends Cubit<NewsStates> {
   List<dynamic> scienceNewsList = [];
   List<dynamic> sportsNewsList = [];
   List<dynamic> searchNewsList = [""];
-
+  int selectedListItem=0;
   int currentIndex = 0;
+  bool isDesktop = false;
   List<BottomNavigationBarItem> bottomItems = [
     BottomNavigationBarItem(
         icon: Icon(
@@ -57,7 +58,7 @@ class NewsCubit extends Cubit<NewsStates> {
         'category': category,
         //a552a4a2da2c4805865c9a9c85056383
         //156ce3ce099b432dab6ae5abc6245fe6
-        'apiKey': "a552a4a2da2c4805865c9a9c85056383",
+        'apiKey': "156ce3ce099b432dab6ae5abc6245fe6",
       },
     );
     var newsList = response.data['articles'];
@@ -70,10 +71,15 @@ class NewsCubit extends Cubit<NewsStates> {
     scienceNewsList = await getNews(category: "science");
     sportsNewsList = await getNews(category: "sports");
   }
+  void selectedItem(index){
+    selectedListItem =index;
+    emit(selectedListItemNewsState());
+  }
 
   bool isNewsVisible = false;
+
   Future<List<dynamic>> getSearch(String value) async {
-    isNewsVisible =true;
+    isNewsVisible = true;
     searchNewsList.clear();
     emit(LoadingSearchNewsState());
     var response = await DioHelper.dio.get(

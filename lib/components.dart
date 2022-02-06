@@ -1,9 +1,10 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:responsive_builder/responsive_builder.dart';
+import 'package:simple_api/cubit/news_cubit.dart';
 import 'package:simple_api/modules/web_view_screen.dart';
+List<dynamic> newsList=[];
 
-Widget myNewsListView(List<dynamic> newsList) {
+ myNewsListView(newsList) {
   return newsList.isEmpty
       ? Center(child: CircularProgressIndicator.adaptive())
       : ListView.separated(
@@ -11,55 +12,33 @@ Widget myNewsListView(List<dynamic> newsList) {
           physics: BouncingScrollPhysics(),
           itemBuilder: (context, index) {
             return Container(
+
               margin: EdgeInsets.all(5),
               padding: EdgeInsets.all(10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
-                color: Theme.of(context).cardTheme.color,
+                color: NewsCubit.get(context).selectedListItem == index?
+               Theme.of(context).cardTheme.color : Theme.of(context).primaryColor ,
               ),
-              child: InkWell(
-                onTap: () {
-                  navigateTo(context, WebViewScreen(newsList[index]['url']));
-                },
-                child: Row(
-                  children: [
-                    Container(
-                      width: 120,
-                      height: 120,
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.grey.shade300,
-                          image: DecorationImage(
-                            image: NetworkImage(
-                                newsList[index]['urlToImage'] ?? ""),
-                            fit: BoxFit.cover,
-                          )),
-                    ),
-                    SizedBox(
-                      width: 20,
-                    ),
-                    Expanded(
-                      child: Container(
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          children: [
-                            Text(
-                              newsList[index]['title'],
-                              style: Theme.of(context).textTheme.bodyText1,
-                              maxLines: 3,
-                            ),
-                            Text(
-                              newsList[index]['publishedAt'],
-                              style: Theme.of(context).textTheme.bodyText1,
-                              maxLines: 1,
-                            )
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
+              child: ScreenTypeLayout(
+                mobile:  InkWell(
+                  onTap: () {
+                    navigateTo(context, WebViewScreen(newsList[index]['url']));
+                  },
+                  child: listItem(newsList, context, index),
+                ),
+                tablet: InkWell(
+                  onTap: () {
+                    NewsCubit.get(context).selectedItem(index);
+                  },
+                  child: listItem(newsList, context, index),
+                ),
+                desktop: InkWell(
+                  onTap: () {
+                    NewsCubit.get(context).selectedItem(index);
+
+                  },
+                  child: listItem(newsList, context,index),
                 ),
               ),
             );
@@ -71,7 +50,134 @@ Widget myNewsListView(List<dynamic> newsList) {
           ),
         );
 }
+ listItem(newsList,context, index){
+  NewsCubit.get(context).selectedListItem == index;
+  return  Row(
+    children: [
+      Container(
+        width: 120,
+        height: 120,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(10),
+            color: Colors.grey.shade300,
+            image: DecorationImage(
+              image: NetworkImage(
+                  newsList[index]['urlToImage'] ?? ""),
+              fit: BoxFit.cover,
+            )),
+      ),
+      SizedBox(
+        width: 20,
+      ),
+      Expanded(
+        child: Container(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.start,
+            children: [
+              Text(
+                newsList[index]['title'],
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 3,
+              ),
+              Text(
+                newsList[index]['publishedAt'],
+                style: Theme.of(context).textTheme.bodyText1,
+                maxLines: 1,
+              )
+            ],
+          ),
+        ),
+      ),
+    ],
+  );
+}
+ myNewsDetails( newsList,context) {
 
+  return newsList.isEmpty
+      ? Center(child: CircularProgressIndicator.adaptive())
+      : Container(
+        margin: EdgeInsets.all(5),
+        padding: EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(25),
+          color: Theme.of(context).cardTheme.color,
+        ),
+
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height/2.5,
+                  decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(10),
+                      color: Colors.grey.shade300,
+                      image: DecorationImage(
+                        image: NetworkImage(
+                            newsList[NewsCubit.get(context).selectedListItem]['urlToImage'] ?? ""),
+                        fit: BoxFit.fill,
+                      )),
+                ),
+                SizedBox(
+                  width: 20,
+                ),
+                Expanded(
+                  child: Container(
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        Text(
+                          newsList[NewsCubit.get(context).selectedListItem]['title'] ?? "",
+                          style: Theme.of(context).textTheme.bodyText1,
+                          maxLines: 3,
+                        ),
+                        Text(
+                          newsList[NewsCubit.get(context).selectedListItem]['publishedAt'] ?? "",
+                          style: Theme.of(context).textTheme.bodyText1,
+                          maxLines: 1,
+                        ),
+                        Text(
+                          newsList[NewsCubit.get(context).selectedListItem]['description'] ?? "",
+                          style: Theme.of(context).textTheme.bodyText1,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          );
+
+}
+buildMobileLayout(context,newsList)=> Builder(
+  builder: (context) {
+
+    return     Scaffold(
+
+      body: myNewsListView(newsList,),
+
+    );
+  }
+);
+buildDesktopLayout(context, newsList)=> Row(
+  children: [
+    Expanded(
+      flex: 1,
+      child: Container(
+          child: Scaffold(
+            body: myNewsListView(newsList),
+          )),
+    ),
+    Expanded(
+      flex: 2,
+      child: myNewsDetails(newsList, context),
+    ),
+  ],
+);
 Widget defaultTextField(
   BuildContext context, {
   required TextEditingController controller,
