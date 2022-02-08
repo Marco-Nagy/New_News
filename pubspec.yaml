@@ -37,6 +37,7 @@ dependencies:
   desktop_window: ^0.4.0
   responsive_builder: ^0.4.1
   responsive_sizer: ^3.0.5+1
+  flutter_device_type: ^0.4.0
 
 dev_dependencies:
   flutter_test:

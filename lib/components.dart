@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:responsive_builder/responsive_builder.dart';
 import 'package:simple_api/cubit/news_cubit.dart';
 import 'package:simple_api/modules/web_view_screen.dart';
+
+import 'adaptive/adaptive_indecator.dart';
 List<dynamic> newsList=[];
 
  myNewsListView(newsList) {
   return newsList.isEmpty
-      ? Center(child: CircularProgressIndicator.adaptive())
+      ? Center(child: AdaptiveIndicator())
       : ListView.separated(
           itemCount: newsList.length,
           physics: BouncingScrollPhysics(),
@@ -96,7 +98,7 @@ List<dynamic> newsList=[];
  myNewsDetails( newsList,context) {
 
   return newsList.isEmpty
-      ? Center(child: CircularProgressIndicator.adaptive())
+      ? Center(child: AdaptiveIndicator())
       : Container(
         margin: EdgeInsets.all(5),
         padding: EdgeInsets.all(10),
